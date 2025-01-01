@@ -1,19 +1,19 @@
-import {useState} from 'react';
+//import {useState} from 'react';
 
-const initialGameBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-]
+// const initialGameBoard = [
+//     [null, null, null],
+//     [null, null, null],
+//     [null, null, null]
+// ]
 
-export default function Gammeboard({onSelectSquare, turns}) {
-    let gameBoard = initialGameBoard;
+export default function Gammeboard({onSelectSquare, board}) {
+    // let gameBoard = initialGameBoard;
 
-    for(const turn of turns){
-        const {square, player} = turn;
-        const {row, col} = square;
-        gameBoard[row][col] = player;
-    }
+    // for(const turn of turns){
+    //     const {square, player} = turn;
+    //     const {row, col} = square;
+    //     gameBoard[row][col] = player;
+    // }
     // const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
     // const handleSelectedSquare = (rowIndex, colIndex) => {
@@ -28,7 +28,7 @@ export default function Gammeboard({onSelectSquare, turns}) {
     return (
         <>
             <ol id="game-board">
-                {gameBoard.map((row, rowIndex) => {
+                {board.map((row, rowIndex) => {
                     return (
                         <li key={rowIndex}>
                             <ol>
@@ -37,7 +37,7 @@ export default function Gammeboard({onSelectSquare, turns}) {
                                         
                                             <li key={colIndex}>
                                                 {/* <button onClick={()=>handleSelectedSquare(rowIndex,colIndex)}> */}
-                                                <button onClick={() => onSelectSquare(rowIndex, colIndex)}>
+                                                <button onClick={() => onSelectSquare(rowIndex, colIndex)} disabled={playerSymbol !== null}>
                                                     {playerSymbol}
                                                 </button>
                                             </li>
