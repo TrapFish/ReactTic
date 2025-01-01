@@ -6,19 +6,25 @@ const initialGameBoard = [
     [null, null, null]
 ]
 
-export default function Gammeboard({onSelectSquare, activePlayerSymbol}) {
-    const [gameBoard, setGameBoard] = useState(initialGameBoard);
+export default function Gammeboard({onSelectSquare, turns}) {
+    let gameBoard = initialGameBoard;
 
-    const handleSelectedSquare = (rowIndex, colIndex) => {
-        setGameBoard((prevGameBoard)=> {
-            const updateBoard = [...prevGameBoard.map(innerArray => [...innerArray])];
-            updateBoard[rowIndex][colIndex] = activePlayerSymbol;
-            return updateBoard;
-        });
-
-        onSelectSquare();
+    for(const turn of turns){
+        const {square, player} = turn;
+        const {row, col} = square;
+        gameBoard[row][col] = player;
     }
+    // const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
+    // const handleSelectedSquare = (rowIndex, colIndex) => {
+    //     setGameBoard((prevGameBoard)=> {
+    //         const updateBoard = [...prevGameBoard.map(innerArray => [...innerArray])];
+    //         updateBoard[rowIndex][colIndex] = activePlayerSymbol;
+    //         return updateBoard;
+    //     });
+
+    //     onSelectSquare();
+    // }
     return (
         <>
             <ol id="game-board">
@@ -28,13 +34,14 @@ export default function Gammeboard({onSelectSquare, activePlayerSymbol}) {
                             <ol>
                                 {row.map((playerSymbol, colIndex) => {
                                     return (
-                                        <>
+                                        
                                             <li key={colIndex}>
-                                                <button onClick={()=>handleSelectedSquare(rowIndex,colIndex)}>
+                                                {/* <button onClick={()=>handleSelectedSquare(rowIndex,colIndex)}> */}
+                                                <button onClick={() => onSelectSquare(rowIndex, colIndex)}>
                                                     {playerSymbol}
                                                 </button>
                                             </li>
-                                        </>
+                                        
                                     )
                                 })}
                             </ol>
